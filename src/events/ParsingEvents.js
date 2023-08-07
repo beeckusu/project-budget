@@ -24,7 +24,6 @@ const parseCSV = (file, rowToObject) => {
                     let row = response.rows[index];
                     objects.push(rowToObject(row));
                 }
-                console.log(objects);
                 resolve(objects);
             }
         });
