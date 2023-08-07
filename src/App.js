@@ -1,11 +1,11 @@
 import './App.css';
-import FileInput from './components/FileInput';
+import FileUploadParser from './components/FileUploadParser';
 
 function App() {
   return (
     <div>
       <header>
-        <FileInput />
+        <FileUploadParser />
 
       </header>
     </div>
