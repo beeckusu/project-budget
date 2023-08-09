@@ -1,13 +1,15 @@
 import './App.css';
 import FileUploadParser from './components/FileUploadParser';
+import { DataProvider } from './contexts/DataContext';
 
 function App() {
   return (
     <div>
-      <header>
-        <FileUploadParser />
-
-      </header>
+      <DataProvider>
+        <header>
+          <FileUploadParser />
+        </header>
+      </DataProvider>
     </div>
   );
 }
