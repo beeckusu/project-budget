@@ -1,14 +1,29 @@
 import FileInput from "./FileInput";
 import { Button } from "react-bootstrap";
 import { parseCSV, rowToTransaction } from "../events/ParsingEvents";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { v4 as uuidv4 } from 'uuid';
+import { DataContext, ACTION_SET_TRANSACTIONS } from "../contexts/DataContext";
 
 const FileUploadParser = () => {
 
+    const { dispatch } = useContext(DataContext);
     const [file, setFile] = useState('');
 
     const handleOnParseClick = () => {
-        parseCSV(file.target.files[0], rowToTransaction);
+        parseCSV(file.target.files[0], rowToTransaction).then(result => {
+
+            const fileDetails = {
+              id: uuidv4(),
+              data: result
+            }
+        
+            dispatch({
+              type: ACTION_SET_TRANSACTIONS,
+              payload: fileDetails,
+            });
+        
+        });
     }
 
     return (
