@@ -2,12 +2,13 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const FileInput = ({onChange}) => {
+    console.log("FILE INPUT");
     
         return (
             <Form>
                 <Form.Group>
-                    <Form.Label>Choose a file:</Form.Label>
-                    <Form.Control type="file" onChange={onChange} />
+                    <Form.Label for='fileInput'>Choose a file:</Form.Label>
+                    <Form.Control type="file" onChange={onChange} id='fileInput'/>
                 </Form.Group>
             </Form>
         );
