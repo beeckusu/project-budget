@@ -1,3 +1,5 @@
+import { FormatDate } from "./Utils";
+
 /**
  * Given a list of transactions, convert it to a format digestible by BarChart.
  * The format is a list of objects with the following properties:
@@ -15,8 +17,7 @@ function fetchChartData(transactions) {
         return [];
     }
 
-    const dateToKey = (date) => { return date.toDateString(); }
-    const getKey = (transaction) => { return dateToKey(transaction.date); }
+    const getKey = (transaction) => { return FormatDate(transaction.date); }
     const getData = (transaction) => { return ["Total", transaction.amount]; }
 
     let sortedTransactions = transactions.sort((a, b) => a.date - b.date);
@@ -27,7 +28,7 @@ function fetchChartData(transactions) {
 
         while (currentDate <= endDate) {
 
-            let key = dateToKey(currentDate);
+            let key = FormatDate(currentDate);
 
             if (data[key] == null) {
                 data[key] = {
@@ -61,8 +62,4 @@ function fetchChartData(transactions) {
     return Object.values(data);
 }
 
-const MoneyFormatter = (value) => {
-    return `$${value.toFixed(2)}`;
-}
-
-export { fetchChartData, MoneyFormatter };
+export { fetchChartData };

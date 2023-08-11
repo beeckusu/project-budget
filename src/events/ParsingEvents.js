@@ -10,6 +10,7 @@ const defaultTransactionFieldToColumn = {
     'deposit': 3
 }
 
+
 const parseCSV = (file, rowToObject) => {
 
     return new Promise((resolve, reject) => {
@@ -40,8 +41,6 @@ const parseCSV = (file, rowToObject) => {
 
 const rowToTransaction = (row, transactionFieldToColumn = defaultTransactionFieldToColumn) => {
 
-    console.log(row);
-
     let dateCol = transactionFieldToColumn['date'];
     let descriptionCol = transactionFieldToColumn['description'];
     let expenseCol = transactionFieldToColumn['expense'];
@@ -55,5 +54,6 @@ const rowToTransaction = (row, transactionFieldToColumn = defaultTransactionFiel
     return new Transaction(id, description, amount, date, transactionType);
 
 }
+
 
 export { parseCSV, rowToTransaction };

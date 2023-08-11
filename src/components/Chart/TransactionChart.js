@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { DataContext } from '../../contexts/DataContext';
-import { MoneyFormatter, fetchChartData } from '../../utils/ChartUtils';
+import { fetchChartData } from '../../utils/ChartUtils';
+import { FormatMoney } from '../../utils/Utils';
 
 
 const SummaryChart = ({transactions}) => {
@@ -11,13 +12,14 @@ const SummaryChart = ({transactions}) => {
         <BarChart width={600} height={300} data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="key" />
-            <YAxis formatter={MoneyFormatter}/>
-            <Tooltip formatter={MoneyFormatter}/>
+            <YAxis formatter={FormatMoney}/>
+            <Tooltip formatter={FormatMoney}/>
             <Legend />
             <Bar key="key" dataKey="Total" stackId="Total" fill="#8884d8" />
         </BarChart>
     );
 };
+
 
 const TransactionChart = () => {
 
@@ -30,5 +32,6 @@ const TransactionChart = () => {
         </div>
     );
 }
+
 
 export default TransactionChart;
