@@ -1,14 +1,14 @@
 import './App.css';
-import FileUploadParser from './components/FileUploadParser';
+import TransactionChart from './components/Chart/TransactionChart';
+import FileUploadParser from './components/FileUpload/FileUploadParser';
 import { DataProvider } from './contexts/DataContext';
 
 function App() {
   return (
     <div>
       <DataProvider>
-        <header>
           <FileUploadParser />
-        </header>
+          <TransactionChart />
       </DataProvider>
     </div>
   );

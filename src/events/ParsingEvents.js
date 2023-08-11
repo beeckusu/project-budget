@@ -11,8 +11,15 @@ const defaultTransactionFieldToColumn = {
 }
 
 const parseCSV = (file, rowToObject) => {
+
     return new Promise((resolve, reject) => {
+
+        if (file.size === 0) {
+            resolve([]);
+        }
+
         ExcelRenderer(file, (error, response) => {
+
             if (error) {
                 console.log(error);
             }
@@ -32,6 +39,8 @@ const parseCSV = (file, rowToObject) => {
 
 
 const rowToTransaction = (row, transactionFieldToColumn = defaultTransactionFieldToColumn) => {
+
+    console.log(row);
 
     let dateCol = transactionFieldToColumn['date'];
     let descriptionCol = transactionFieldToColumn['description'];
