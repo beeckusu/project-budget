@@ -1,0 +1,26 @@
+.circular-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.sidebar {
+    position: fixed;
+    right: 25px;
+    top: 75px;
+    z-index: 1;
+    width: 1000px;
+    max-height: 75%;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.sidebar.card {
+    max-height: 400px;
+    overflow-y: auto;
+}
