@@ -13,12 +13,12 @@ const SideBar = () => {
     return (
         <SideBarProvider>
 
-            <div className={`sidebar ${open ? 'open' : 'collapsed'}`}>
+            <div className={`sidebar ${open ? 'open' : 'collapsed'} override-bs`}>
                 <Button
                     onClick={() => setOpen(!open)}
                     aria-controls="sidebar-collapse"
                     aria-expanded={open}
-                    className='circular-button'
+                    className='circular-button sidebar-button'
                 >
                     +
                 </Button>
