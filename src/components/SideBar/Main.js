@@ -24,7 +24,7 @@ const SideBar = () => {
                     +
                 </Button>
                 <Collapse in={open} dimension="width">
-                    <Card class='sidebar-content' style={{ maxHeight: "400px", overflowY: "auto" }}>
+                    <Card class='sidebar-content'>
                         <Tabs defaultActiveKey="transactions" class="sidebar-collapse">
                             <Tab eventKey="transactions" title="Transactions">
                                 <TransactionView />
