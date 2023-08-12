@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { FormControl, Table } from 'react-bootstrap';
+import { FormControl, Table, Button } from 'react-bootstrap';
 import { DataContext } from '../../contexts/DataContext';
 
 
@@ -23,10 +23,21 @@ const TagRow = ({ tag }) => {
         });
     }
 
+    const handleDeleteTagButtonClick = (event) => {
+        const tagId = event.target.getAttribute('tagid');
+        dispatch({
+            type: 'DELETE_TAG',
+            payload: {
+                tagId: tagId
+            }
+        });
+    }
+
     return (
         <tr>
             <td><FormControl type="text" defaultValue={tag.name} dispatchtype="SET_TAG_NAME" tagid={tag.id} onChange={handleOnDataChange} /></td>
             <td><FormControl type="color" defaultValue={tag.colour} dispatchtype="SET_TAG_COLOUR" tagid={tag.id} onChange={handleOnDataChange} /></td>
+            <td><Button variant="danger" className="circular-button" tagid={tag.id} onClick={handleDeleteTagButtonClick}>-</Button></td>
         </tr>
     );
 }
@@ -34,8 +45,14 @@ const TagRow = ({ tag }) => {
 
 const TagTable = () => {
 
-    const { state } = useContext(DataContext);
+    const { state, dispatch } = useContext(DataContext);
     const { tags } = state;
+
+    const handleAddTagButtonClick = (event) => {
+        dispatch({
+            type: 'ADD_TAG',
+        })
+    };
 
     return (
         <Table>
@@ -43,12 +60,18 @@ const TagTable = () => {
                 <tr>
                     <th>Name</th>
                     <th>Colour</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {tags.map((tag) => {
                     return <TagRow tag={tag} />
                 })}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><Button variant="success" className="circular-button" onClick={handleAddTagButtonClick}>+</Button></td>
+                </tr>
             </tbody>
         </Table>
     )
