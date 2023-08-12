@@ -10,9 +10,22 @@ const FileUploadParser = () => {
     const { dispatch } = useContext(DataContext);
     const [file, setFile] = useState('');
 
+
+    const [dateCol, setDateCol] = useState(0);
+    const [descriptionCol, setDescriptionCol] = useState(1);
+    const [expenseCol, setExpenseCol] = useState(2);
+    const [depositCol, setDepositCol] = useState(3);
+
     const handleOnParseClick = () => {
 
-        parseCSV(file.target.files[0], rowToTransaction).then(result => {
+        const transactionFieldToColumn = {
+            'date': dateCol,
+            'description': descriptionCol,
+            'expense': expenseCol,
+            'deposit': depositCol
+        }
+
+        parseCSV(file.target.files[0], rowToTransaction, transactionFieldToColumn).then(result => {
 
             const transactionDescriptions = normalizeTransactions(result);
 
