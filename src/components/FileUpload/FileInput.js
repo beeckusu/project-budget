@@ -2,7 +2,6 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const FileInput = ({onChange}) => {
-    console.log("FILE INPUT");
     
         return (
             <Form>
