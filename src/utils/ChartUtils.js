@@ -1,4 +1,4 @@
-import { DateInterval } from "./Enums";
+import { DateInterval, ChartCategory } from "./Enums";
 import { FormatDate } from "./Utils";
 
 /**
@@ -12,14 +12,23 @@ import { FormatDate } from "./Utils";
  * @param {*} transactions: List of Transaction objects
  * @returns Iterable of dicts with the above properties
  */
-function fetchChartData(transactions, dateInterval = DateInterval.DAY) {
+function fetchChartData(transactions, dateInterval = DateInterval.DAY, chartCategory = ChartCategory.NONE) {
 
     if (transactions == null || transactions.length === 0) {
         return [];
     }
 
     const getKey = (transaction) => { return FormatDate(transaction.date, dateInterval); }
-    const getData = (transaction) => { return ["Total", transaction.amount]; }
+    const getData = (transaction) => { 
+        let key = "Total";
+        if (chartCategory == ChartCategory.DESCRIPTION)
+            key = transaction.description.name;
+
+        else if (chartCategory == ChartCategory.TAG)
+            key = transaction.description.tag.name;
+
+        return [key, transaction.amount]; 
+    }
 
     let sortedTransactions = transactions.sort((a, b) => a.date - b.date);
 
@@ -67,7 +76,6 @@ function fetchChartData(transactions, dateInterval = DateInterval.DAY) {
 
     for (let transaction of sortedTransactions) {
         let key = getKey(transaction);
-        console.log(transaction.date + " to " + key);
         let amount = getData(transaction);
 
         if (data[key] == null) {
@@ -79,6 +87,9 @@ function fetchChartData(transactions, dateInterval = DateInterval.DAY) {
             data[key] = entry;
         }
         else {
+            if (data[key][amount[0]] == null) {
+                data[key][amount[0]] = 0;
+            }
             data[key][amount[0]] += amount[1];
         }
     }

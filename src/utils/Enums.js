@@ -5,4 +5,15 @@ const DateInterval = {
     YEAR: 3
 }
 
-export { DateInterval };
+const ChartCategory = {
+    NONE: 0,
+    DESCRIPTION: 1,
+    TAG: 2
+}
+
+const ChartStyle = {
+    STACKED: 0,
+    SEPARATED: 1
+}
+
+export { DateInterval, ChartCategory, ChartStyle };
