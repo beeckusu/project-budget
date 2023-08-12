@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { FormControl, Table, Button } from 'react-bootstrap';
-import { DataContext } from '../../contexts/DataContext';
+import { DataContext, DEFAULT_TAG_ID } from '../../contexts/DataContext';
 
 
 const TagRow = ({ tag }) => {
@@ -25,6 +25,10 @@ const TagRow = ({ tag }) => {
 
     const handleDeleteTagButtonClick = (event) => {
         const tagId = event.target.getAttribute('tagid');
+
+        if (tagId == DEFAULT_TAG_ID) {
+            return;
+        }
         dispatch({
             type: 'DELETE_TAG',
             payload: {
@@ -37,7 +41,7 @@ const TagRow = ({ tag }) => {
         <tr>
             <td><FormControl type="text" defaultValue={tag.name} dispatchtype="SET_TAG_NAME" tagid={tag.id} onChange={handleOnDataChange} /></td>
             <td><FormControl type="color" defaultValue={tag.colour} dispatchtype="SET_TAG_COLOUR" tagid={tag.id} onChange={handleOnDataChange} /></td>
-            <td><Button variant="danger" className="circular-button" tagid={tag.id} onClick={handleDeleteTagButtonClick}>-</Button></td>
+            <td>{tag.id != DEFAULT_TAG_ID && <Button variant="danger" className="circular-button" tagid={tag.id} onClick={handleDeleteTagButtonClick}>-</Button>}</td>
         </tr>
     );
 }

@@ -8,6 +8,9 @@ export const ACTION_SET_TAG_NAME = 'SET_TAG_NAME';
 export const ACTION_SET_TAG_COLOUR = 'SET_TAG_COLOUR';
 export const ACTION_DELETE_TAG = 'DELETE_TAG';
 export const ACTION_ADD_TAG = 'ADD_TAG';
+export const ACTION_SET_TRANSACTION_DESCRIPTION_TAG = 'SET_TRANSACTION_DESCRIPTION_TAG';
+
+export const DEFAULT_TAG_ID = 1;
 
 const DataReducer = (state, action) => {
 
@@ -15,7 +18,8 @@ const DataReducer = (state, action) => {
         case ACTION_SET_TRANSACTIONS:
             return {
                 ...state,
-                transactions: action.payload.data
+                transactions: action.payload.transactions,
+                descriptions: action.payload.transactionDescriptions
             }
 
         case ACTION_SET_TAG_NAME:
@@ -56,6 +60,17 @@ const DataReducer = (state, action) => {
                 ...state,
                 tags: state.tags
             }
+
+        case ACTION_SET_TRANSACTION_DESCRIPTION_TAG:
+            const transactionDescription = action.payload.transactionDescription;
+            const tag = action.payload.tag;
+            transactionDescription.tag = tag;
+            
+            return {
+                ...state,
+                descriptions: state.descriptions
+            }
+
             
         default:
             return state;
@@ -66,7 +81,8 @@ const DataContext = React.createContext();
 
 const initialState = {
     transactions: [],
-    tags: [new Tag(1, 'Food', '#ff0000'), new Tag(2, 'Transport', '#00ff00'), new Tag(3, 'Entertainment', '#0000ff')]
+    descriptions: [],
+    tags: [new Tag(DEFAULT_TAG_ID, 'Default', '#ffffff')]
 }
 
 const DataProvider = ({ children }) => {
