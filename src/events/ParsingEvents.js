@@ -12,7 +12,7 @@ const defaultTransactionFieldToColumn = {
 }
 
 
-const parseCSV = (file, rowToObject) => {
+const parseCSV = (file, rowToObject, fieldToCol=defaultTransactionFieldToColumn) => {
 
     return new Promise((resolve, reject) => {
 
