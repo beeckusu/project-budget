@@ -5,7 +5,12 @@ class Transaction {
         this.amount = amount;
         this.date = date;
         this.transactionType = transactionType;
+        this.tag = null;
     };
+
+    setTag(tag){
+        this.tag = tag;
+    }
 }
 
 export default Transaction;
