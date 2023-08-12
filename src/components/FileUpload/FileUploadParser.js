@@ -1,6 +1,6 @@
 import FileInput from "./FileInput";
 import { Button } from "react-bootstrap";
-import { parseCSV, rowToTransaction } from "../../events/ParsingEvents";
+import { normalizeTransactions, parseCSV, rowToTransaction } from "../../events/ParsingEvents";
 import { useState, useContext } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { DataContext, ACTION_SET_TRANSACTIONS } from "../../contexts/DataContext";
@@ -11,21 +11,21 @@ const FileUploadParser = () => {
     const [file, setFile] = useState('');
 
     const handleOnParseClick = () => {
-        console.log("HANDLE CLICK " + parseCSV(file.target.files[0], rowToTransaction));
-        console.log("Method: " + parseCSV);
+
         parseCSV(file.target.files[0], rowToTransaction).then(result => {
-            console.log("Thening");
+
+            const transactionDescriptions = normalizeTransactions(result);
 
             const fileDetails = {
-              id: uuidv4(),
-              data: result
+                transactions: result,
+                transactionDescriptions: transactionDescriptions,
             }
-        
+
             dispatch({
-              type: ACTION_SET_TRANSACTIONS,
-              payload: fileDetails,
+                type: ACTION_SET_TRANSACTIONS,
+                payload: fileDetails,
             });
-        
+
         });
     }
 

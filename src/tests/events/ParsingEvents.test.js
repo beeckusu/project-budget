@@ -10,7 +10,6 @@ describe('parseCSV', () => {
     const testFileContents = async (contents, expectedResult) => {
         const blob = new Blob([contents]);
         const file = new File([blob], 'mockedFileName.csv', { type: 'text/csv' });
-        console.log(blob);
 
         await expect(parseCSV(file, rowToObject)).resolves.toStrictEqual(expectedResult);
     }
@@ -23,7 +22,6 @@ describe('parseCSV', () => {
 
     testCases.forEach((testCase) => {
         it(testCase.name, async () => {
-            console.log(testCase.name);
             await testFileContents(testCase.contents, testCase.expectedResult);
         });
     });

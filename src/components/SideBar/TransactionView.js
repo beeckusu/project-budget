@@ -7,10 +7,11 @@ import { FormatMoney, FormatDate } from "../../utils/Utils";
 
 
 const TransactionRow = ({ transaction }) => {
+    
     return (
         <tr>
             <td>{FormatDate(transaction.date)}</td>
-            <td>{transaction.description}</td>
+            <td>{transaction.description.name}</td>
             <td>{FormatMoney(transaction.amount)}</td>
             <td>{transaction.transactionType}</td>
         </tr>

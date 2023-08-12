@@ -4,6 +4,7 @@ import { Button, Collapse, Card } from "react-bootstrap";
 import { SideBarProvider } from "../../contexts/SideBarContext";
 import { Tab, Tabs } from "react-bootstrap";
 import TagView from "./TagView";
+import TransactionDescriptionView from "./TransactionDescriptionView";
 
 
 
@@ -27,6 +28,9 @@ const SideBar = () => {
                         <Tabs defaultActiveKey="transactions" class="sidebar-collapse">
                             <Tab eventKey="transactions" title="Transactions">
                                 <TransactionView />
+                            </Tab>
+                            <Tab eventKey="descriptions" title="Descriptions">
+                                <TransactionDescriptionView />
                             </Tab>
                             <Tab eventKey="tags" title="Tags">
                                 <TagView />

@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { ExcelRenderer } from 'react-excel-renderer';
 import Transaction from '../models/Transaction';
+import TransactionDescription from '../models/TransactionDescription';
 
 
 const defaultTransactionFieldToColumn = {
@@ -39,6 +40,23 @@ const parseCSV = (file, rowToObject) => {
 }
 
 
+const normalizeTransactions = (transactions) => {
+
+    const transactionDescriptions = {};
+
+    transactions.forEach(transaction => {
+        if (!transactionDescriptions[transaction.description]) {
+            transactionDescriptions[transaction.description] = new TransactionDescription(uuidv4(), transaction.description);
+        }
+        transaction.description = transactionDescriptions[transaction.description];
+    });
+
+    return Object.values(transactionDescriptions);
+
+}
+    
+
+
 const rowToTransaction = (row, transactionFieldToColumn = defaultTransactionFieldToColumn) => {
 
     let dateCol = transactionFieldToColumn['date'];
@@ -56,4 +74,4 @@ const rowToTransaction = (row, transactionFieldToColumn = defaultTransactionFiel
 }
 
 
-export { parseCSV, rowToTransaction };
+export { parseCSV, rowToTransaction, normalizeTransactions };
