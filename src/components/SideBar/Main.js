@@ -2,6 +2,9 @@ import TransactionView from "./TransactionView";
 import { useState } from "react";
 import { Button, Collapse, Card } from "react-bootstrap";
 import { SideBarProvider } from "../../contexts/SideBarContext";
+import { Tab, Tabs } from "react-bootstrap";
+import TagView from "./TagView";
+
 
 
 const SideBar = () => {
@@ -20,11 +23,16 @@ const SideBar = () => {
                     +
                 </Button>
                 <Collapse in={open} dimension="width">
-                    <div class="sidebar-collapse">
-                        <Card class='sidebar-content' style={{ maxHeight: "400px", overflowY: "auto" }}>
-                            <TransactionView />
-                        </Card>
-                    </div>
+                    <Card class='sidebar-content' style={{ maxHeight: "400px", overflowY: "auto" }}>
+                        <Tabs defaultActiveKey="transactions" class="sidebar-collapse">
+                            <Tab eventKey="transactions" title="Transactions">
+                                <TransactionView />
+                            </Tab>
+                            <Tab eventKey="tags" title="Tags">
+                                <TagView />
+                            </Tab>
+                        </Tabs>
+                    </Card>
                 </Collapse>
             </div>
         </SideBarProvider>
