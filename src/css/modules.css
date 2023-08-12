@@ -1,12 +1,16 @@
-.circular-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+.circular-button,
+.override-bs .circular-button {
     width: 40px;
     height: 40px;
     display: flex;
     border-radius: 50%;
     text-align: center;
+}
+
+.sidebar-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
 }
 
 .sidebar {
