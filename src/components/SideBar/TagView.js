@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { FormControl, Table, Button } from 'react-bootstrap';
-import { DataContext, DEFAULT_TAG_ID } from '../../contexts/DataContext';
+import { DataContext, DEFAULT_TAG_ID, ACTION_TOGGLE_OBJECT_VISIBILITY } from '../../contexts/DataContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 
 const TagRow = ({ tag }) => {
@@ -37,10 +39,21 @@ const TagRow = ({ tag }) => {
         });
     }
 
+    const handleActiveButtonClick = (event) => {
+        dispatch({
+            type: ACTION_TOGGLE_OBJECT_VISIBILITY,
+            payload: {
+                object: tag,
+                isActive: !tag.isActive
+            }
+        });
+    }
+
     return (
         <tr>
             <td><FormControl type="text" defaultValue={tag.name} dispatchtype="SET_TAG_NAME" tagid={tag.id} onChange={handleOnDataChange} /></td>
             <td><FormControl type="color" defaultValue={tag.colour} dispatchtype="SET_TAG_COLOUR" tagid={tag.id} onChange={handleOnDataChange} /></td>
+            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={tag.isActive ? faPlay: faPause} /></Button></td>
             <td>{tag.id != DEFAULT_TAG_ID && <Button variant="danger" className="circular-button" tagid={tag.id} onClick={handleDeleteTagButtonClick}>-</Button>}</td>
         </tr>
     );
@@ -65,6 +78,7 @@ const TagTable = () => {
                     <th>Name</th>
                     <th>Colour</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -72,6 +86,7 @@ const TagTable = () => {
                     return <TagRow tag={tag} />
                 })}
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td><Button variant="success" className="circular-button" onClick={handleAddTagButtonClick}>+</Button></td>

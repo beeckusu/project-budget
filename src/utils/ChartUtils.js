@@ -14,6 +14,8 @@ import { FormatDate } from "./Utils";
  */
 function fetchChartData(transactions, dateInterval = DateInterval.DAY, chartCategory = ChartCategory.NONE) {
 
+    transactions = transactions.filter(transaction => transaction.isVisible());
+
     if (transactions == null || transactions.length === 0) {
         return [];
     }

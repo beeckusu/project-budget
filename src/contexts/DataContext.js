@@ -9,6 +9,7 @@ export const ACTION_SET_TAG_COLOUR = 'SET_TAG_COLOUR';
 export const ACTION_DELETE_TAG = 'DELETE_TAG';
 export const ACTION_ADD_TAG = 'ADD_TAG';
 export const ACTION_SET_TRANSACTION_DESCRIPTION_TAG = 'SET_TRANSACTION_DESCRIPTION_TAG';
+export const ACTION_TOGGLE_OBJECT_VISIBILITY = 'TOGGLE_TRANSACTION_VISIBILITY';
 
 export const DEFAULT_TAG_ID = 1;
 
@@ -70,6 +71,17 @@ const DataReducer = (state, action) => {
                 ...state,
                 descriptions: state.descriptions
             }
+        
+        case ACTION_TOGGLE_OBJECT_VISIBILITY:
+            const object = action.payload.object;
+            object.isActive = action.payload.isActive;
+
+            return {
+                ...state,
+                transactions: state.transactions,
+                descriptions: state.descriptions,
+                tags: state.tags
+            }
 
             
         default:
@@ -82,7 +94,7 @@ const DataContext = React.createContext();
 const initialState = {
     transactions: [],
     descriptions: [],
-    tags: [new Tag(DEFAULT_TAG_ID, 'Default', '#ffffff')]
+    tags: [new Tag(DEFAULT_TAG_ID, 'Default', '#8884d8')]
 }
 
 const DataProvider = ({ children }) => {
