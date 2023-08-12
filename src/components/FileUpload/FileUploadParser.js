@@ -1,20 +1,17 @@
-import FileInput from "./FileInput";
-import { Button } from "react-bootstrap";
-import { normalizeTransactions, parseCSV, rowToTransaction } from "../../events/ParsingEvents";
 import { useState, useContext } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { Button } from "react-bootstrap";
+import FileInput from "./FileInput";
+import ColumnParser from "./ColumnParser";
 import { DataContext, ACTION_SET_TRANSACTIONS } from "../../contexts/DataContext";
+import { TransactionParsingProvider, TransactionParsingContext } from "../../contexts/TransactionParsingContext";
+import { normalizeTransactions, parseCSV, rowToTransaction } from "../../events/ParsingEvents";
 
-const FileUploadParser = () => {
+
+const ParseButton = ({ file }) => {
 
     const { dispatch } = useContext(DataContext);
-    const [file, setFile] = useState('');
-
-
-    const [dateCol, setDateCol] = useState(0);
-    const [descriptionCol, setDescriptionCol] = useState(1);
-    const [expenseCol, setExpenseCol] = useState(2);
-    const [depositCol, setDepositCol] = useState(3);
+    const { state } = useContext(TransactionParsingContext);
+    const { dateCol, descriptionCol, expenseCol, depositCol } = state;
 
     const handleOnParseClick = () => {
 
@@ -42,12 +39,21 @@ const FileUploadParser = () => {
         });
     }
 
+    return (<Button variant="primary" onClick={handleOnParseClick}>Parse</Button>);
+}
+
+
+const FileUploadParser = () => {
+
+    const [file, setFile] = useState('');
+
     return (
-        <div>
+        <TransactionParsingProvider>
             <h1>File Upload Parser</h1>
             <FileInput onChange={setFile} />
-            <Button variant="primary" onClick={handleOnParseClick}>Parse</Button>
-        </div>
+            <ColumnParser />
+            <ParseButton file={file} />
+        </TransactionParsingProvider>
     )
 }
 

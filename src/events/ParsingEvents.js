@@ -12,7 +12,42 @@ const defaultTransactionFieldToColumn = {
 }
 
 
-const parseCSV = (file, rowToObject, fieldToCol=defaultTransactionFieldToColumn) => {
+/**
+ * Given a CSV, parse the names of the columns. Assume that the first row is
+ * the column names. If the first row is not, then we can safely assume that 
+ * the column names were not given, in which case we can still return the
+ * first row as an example for the user.
+ * 
+ * @param {*} file - File object to parse
+ * @returns Array of column names
+ */
+const parseCSVColumns = (file) => {
+
+    return new Promise((resolve, reject) => {
+
+        if (file.size === 0) {
+            resolve([]);
+        }
+
+        ExcelRenderer(file, (error, response) => {
+
+            if (error) {
+                console.log(error);
+            }
+            else {
+
+                if (response.rows.length === 0) {
+                    resolve(response.cols);
+                }
+
+                resolve(response.rows[0]);
+            }
+        });
+    });
+}
+
+
+const parseCSV = (file, rowToObject, fieldToCol = defaultTransactionFieldToColumn) => {
 
     return new Promise((resolve, reject) => {
 
@@ -54,7 +89,7 @@ const normalizeTransactions = (transactions) => {
     return Object.values(transactionDescriptions);
 
 }
-    
+
 
 
 const rowToTransaction = (row, transactionFieldToColumn = defaultTransactionFieldToColumn) => {
@@ -74,4 +109,4 @@ const rowToTransaction = (row, transactionFieldToColumn = defaultTransactionFiel
 }
 
 
-export { parseCSV, rowToTransaction, normalizeTransactions };
+export { parseCSV, rowToTransaction, normalizeTransactions, parseCSVColumns };
