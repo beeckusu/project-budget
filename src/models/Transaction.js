@@ -6,10 +6,15 @@ class Transaction {
         this.date = date;
         this.transactionType = transactionType;
         this.tag = null;
+        this.isActive = true;
     };
 
     setTag(tag){
         this.tag = tag;
+    }
+
+    isVisible() {
+        return this.isActive && (this.description == null || this.description.isVisible());
     }
 }
 

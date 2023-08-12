@@ -1,19 +1,33 @@
 import { useContext } from "react";
-import { Table, Form } from "react-bootstrap";
-import { DataContext } from "../../contexts/DataContext";
+import { Table, Form, Button } from "react-bootstrap";
+import { ACTION_TOGGLE_OBJECT_VISIBILITY, DataContext } from "../../contexts/DataContext";
 import { SideBarContext } from "../../contexts/SideBarContext";
 import { filterTransactions } from "../../events/SideBarEvents";
 import { FormatMoney, FormatDate } from "../../utils/Utils";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 
 const TransactionRow = ({ transaction }) => {
     
+    const { dispatch } = useContext(DataContext);
+    const handleActiveButtonClick = (event) => {
+        dispatch({
+            type: ACTION_TOGGLE_OBJECT_VISIBILITY,
+            payload: {
+                object: transaction,
+                isActive: !transaction.isActive
+            }
+        });
+    }
+            
     return (
         <tr>
             <td>{FormatDate(transaction.date)}</td>
             <td>{transaction.description.name}</td>
             <td>{FormatMoney(transaction.amount)}</td>
             <td>{transaction.transactionType}</td>
+            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transaction.isVisible() ? faPlay: faPause} /></Button></td>
         </tr>
     );
 }
@@ -83,6 +97,7 @@ const TransactionTable = () => {
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Transaction Type</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

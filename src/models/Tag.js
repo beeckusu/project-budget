@@ -3,6 +3,7 @@ class Tag {
         this.id = id;
         this.name = name;
         this.colour = colour;
+        this.isActive = true;
     }
 }
 

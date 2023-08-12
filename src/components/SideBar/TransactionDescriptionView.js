@@ -1,11 +1,23 @@
 import { Table, Dropdown } from 'react-bootstrap';
 import { useContext } from 'react';
-import { ACTION_SET_TRANSACTION_DESCRIPTION_TAG, DataContext, DEFAULT_TAG_ID } from '../../contexts/DataContext';
+import { ACTION_SET_TRANSACTION_DESCRIPTION_TAG, DataContext, DEFAULT_TAG_ID, ACTION_TOGGLE_OBJECT_VISIBILITY } from '../../contexts/DataContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import { Button } from 'react-bootstrap';
 
 
 const TransactionDescriptionRow = ({ transactionDescription }) => {
 
     const { state, dispatch } = useContext(DataContext);
+    const handleActiveButtonClick = (event) => {
+        dispatch({
+            type: ACTION_TOGGLE_OBJECT_VISIBILITY,
+            payload: {
+                object: transactionDescription,
+                isActive: !transactionDescription.isActive
+            }
+        });
+    }
 
     if (transactionDescription.tag == null) {
         const defaultTag = state.tags.find((tag) => tag.id == DEFAULT_TAG_ID);
@@ -39,6 +51,7 @@ const TransactionDescriptionRow = ({ transactionDescription }) => {
                     </Dropdown.Menu>
                 </Dropdown>
             </td>
+            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transactionDescription.isVisible() ? faPlay: faPause} /></Button></td>
         </tr>
     );
 }
@@ -56,6 +69,7 @@ const TransactionDescriptionTable = () => {
                 <tr>
                     <th>Name</th>
                     <th>Tag</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
