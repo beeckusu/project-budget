@@ -1,8 +1,9 @@
 class TransactionDescription {
-    constructor(id, description){
+    constructor(id, description, tag=null, isActive=true){
         this.id = id;
         this.name = description;
-        this.isActive = true;
+        this.tag = tag;
+        this.isActive = isActive;
     }
 
     isVisible() {
