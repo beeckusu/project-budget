@@ -46,7 +46,7 @@ const TransactionDescriptionRow = ({ transactionDescription }) => {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {state.tags.map((tag) => {
-                            return <Dropdown.Item onClick={() => handleSelection(tag)}>{tag.name}</Dropdown.Item>
+                            return <Dropdown.Item key={tag.id} onClick={() => handleSelection(tag)}>{tag.name}</Dropdown.Item>
                         })}
                     </Dropdown.Menu>
                 </Dropdown>
@@ -75,7 +75,7 @@ const TransactionDescriptionTable = () => {
             </thead>
             <tbody>
                 {transactionDescriptions.map((transactionDescription) => {
-                    return <TransactionDescriptionRow transactionDescription={transactionDescription} />
+                    return <TransactionDescriptionRow key={transactionDescription.id} transactionDescription={transactionDescription} />
                 })}
             </tbody>
         </Table>

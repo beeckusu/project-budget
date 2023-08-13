@@ -104,7 +104,7 @@ const TransactionTable = () => {
             </thead>
             <tbody>
                 {transactions.map((transaction) => {
-                    return <TransactionRow transaction={transaction} />
+                    return <TransactionRow key={transaction.id} transaction={transaction} />
                 })}
             </tbody>
         </Table>
