@@ -72,7 +72,7 @@ const ParseButton = ({ children, file, eventType, variant, confirmHeader, confir
         <ConfirmationModal
             show={show}
             onHide={() => setShow(false)}
-            onConfirm={() => {setShow(false); handleOnParseClick()}} 
+            onConfirm={() => { setShow(false); handleOnParseClick() }}
             modalHeader={confirmHeader}
             modalMessage={confirmMessage}
             modalTheme={variant}
@@ -91,18 +91,18 @@ const FileUploadParser = () => {
             <h1>File Upload Parser</h1>
             <NewFileInput onChange={setFile} />
             <ColumnParser />
-            <ParseButton file={file} 
-            eventType={ACTION_SET_TRANSACTIONS} 
-            confirmHeader="Starting New Chart"
-            confirmMessage="Are you sure you want start over with new data?"
-            confirmLabel="Start Over"
-            variant="warning">New</ParseButton>
-            <ParseButton file={file} 
-            eventType={ACTION_ADD_TRANSACTIONS} 
-            confirmHeader="Adding Transactions"
-            confirmMessage="Are you sure you want to add new data?"
-            confirmLabel="Add"
-            variant="primary">Add</ParseButton>
+            <ParseButton file={file}
+                eventType={ACTION_SET_TRANSACTIONS}
+                confirmHeader="Starting New Chart"
+                confirmMessage="Are you sure you want start over with new data?"
+                confirmLabel="Start Over"
+                variant="warning">New</ParseButton>
+            <ParseButton file={file}
+                eventType={ACTION_ADD_TRANSACTIONS}
+                confirmHeader="Adding Transactions"
+                confirmMessage="Are you sure you want to add new data?"
+                confirmLabel="Add"
+                variant="primary">Add</ParseButton>
         </TransactionParsingProvider>
     )
 }

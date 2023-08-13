@@ -30,10 +30,9 @@ const ColumnDropdown = ({ fieldName, currentCol }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {columns.map((col, index) => {
-                        return <Dropdown.Item onClick={() => handleOnSelect(fieldName, index)}>
+                        return <Dropdown.Item key={index} onClick={() => handleOnSelect(fieldName, index)}>
                             {(col != null ? col : "-")}
                         </Dropdown.Item>
-
                     })}
                 </Dropdown.Menu>
             </Dropdown>
