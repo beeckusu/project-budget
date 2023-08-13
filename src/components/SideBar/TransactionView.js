@@ -27,7 +27,7 @@ const TransactionRow = ({ transaction }) => {
             <td>{transaction.description.name}</td>
             <td>{FormatMoney(transaction.amount)}</td>
             <td>{transaction.transactionType}</td>
-            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transaction.isVisible() ? faPlay : faPause} /></Button></td>
+            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transaction.isActive ? faPlay : faPause} /></Button></td>
         </tr>
     );
 }
