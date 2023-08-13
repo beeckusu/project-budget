@@ -41,9 +41,26 @@ const SummaryChart = ({ transactions }) => {
     );
 };
 
+
+const ChartPropertySelector = ({ enumType, currentSelection, onClick }) => {
+
+    return (
+        <Dropdown>
+            <Dropdown.Toggle variant="info">
+                {currentSelection}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+                {Object.keys(enumType).map((key) => {
+                    return <Dropdown.Item key={key} onClick={() => onClick(enumType[key])}>{key}</Dropdown.Item>
+                })}
+            </Dropdown.Menu>
+        </Dropdown>
+    );
+}
+
 const SummaryChartController = () => {
 
-    const { dispatch } = useContext(GraphContext);
+    const { state, dispatch } = useContext(GraphContext);
 
     const handleDateSelection = (dateInterval) => {
 
@@ -80,41 +97,13 @@ const SummaryChartController = () => {
             <tbody>
                 <tr>
                     <td>
-                        <Dropdown>
-                            <Dropdown.Toggle variant="info">
-                                Change Date Interval
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {Object.keys(DateInterval).map((key) => {
-                                    return <Dropdown.Item onClick={() => handleDateSelection(DateInterval[key])}>{key}</Dropdown.Item>
-                                })}
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <ChartPropertySelector enumType={DateInterval} currentSelection={Object.keys(DateInterval)[state.dateInterval]} onClick={handleDateSelection} />
                     </td>
                     <td>
-                        <Dropdown>
-                            <Dropdown.Toggle variant="info">
-                                Categorize by
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {Object.keys(ChartCategory).map((key) => {
-                                    return <Dropdown.Item onClick={() => handleCategorySelection(ChartCategory[key])}>{key}</Dropdown.Item>
-                                }
-                                )}
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <ChartPropertySelector enumType={ChartCategory} currentSelection={Object.keys(ChartCategory)[state.chartCategory]} onClick={handleCategorySelection} />
                     </td>
                     <td>
-                        <Dropdown>
-                            <Dropdown.Toggle variant="info">
-                                Chart Style
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {Object.keys(ChartStyle).map((key) => {
-                                    return <Dropdown.Item onClick={() => handleChartStyleSelection(ChartStyle[key])}>{key}</Dropdown.Item>
-                                })}
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <ChartPropertySelector enumType={ChartStyle} currentSelection={Object.keys(ChartStyle)[state.chartStyle]} onClick={handleChartStyleSelection} />
                     </td>
                 </tr>
             </tbody>

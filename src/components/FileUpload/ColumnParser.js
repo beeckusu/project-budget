@@ -11,7 +11,6 @@ const ColumnDropdown = ({ fieldName, currentCol }) => {
 
     const { dispatch } = useContext(TransactionParsingContext);
     const handleOnSelect = (fieldName, col) => {
-        console.log(fieldName + " " +  col);
 
         dispatch({
             type: ACTION_SET_COLUMN_INDEX,
@@ -31,10 +30,9 @@ const ColumnDropdown = ({ fieldName, currentCol }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {columns.map((col, index) => {
-                        return <Dropdown.Item onClick={
-                            () => handleOnSelect(fieldName, index)
-                        }>{(col != null ? col : "-")}</Dropdown.Item>
-
+                        return <Dropdown.Item key={index} onClick={() => handleOnSelect(fieldName, index)}>
+                            {(col != null ? col : "-")}
+                        </Dropdown.Item>
                     })}
                 </Dropdown.Menu>
             </Dropdown>
@@ -63,7 +61,7 @@ const ColumnParser = () => {
                 <tbody>
                     <tr>
                         {fields.map((fieldName) => {
-                            return <ColumnDropdown fieldName={fieldName} currentCol={state[fieldName]}/>
+                            return <ColumnDropdown fieldName={fieldName} currentCol={state[fieldName]} />
                         })}
                     </tr>
                 </tbody>

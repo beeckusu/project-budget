@@ -9,7 +9,7 @@ import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 
 const TransactionRow = ({ transaction }) => {
-    
+
     const { dispatch } = useContext(DataContext);
     const handleActiveButtonClick = (event) => {
         dispatch({
@@ -20,14 +20,14 @@ const TransactionRow = ({ transaction }) => {
             }
         });
     }
-            
+
     return (
         <tr>
             <td>{FormatDate(transaction.date)}</td>
             <td>{transaction.description.name}</td>
             <td>{FormatMoney(transaction.amount)}</td>
             <td>{transaction.transactionType}</td>
-            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transaction.isVisible() ? faPlay: faPause} /></Button></td>
+            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transaction.isVisible() ? faPlay : faPause} /></Button></td>
         </tr>
     );
 }
@@ -59,20 +59,22 @@ const FilterTransactionsForm = () => {
     return (
         <Form>
             <Table>
-                <tr>
-                    <td>Date</td>
-                    <td>From: <Form.Control type="date" dispatchtype="SET_MIN_DATE" onChange={handleOnDataChange} /></td>
-                    <td>To: <Form.Control type="date" dispatchtype="SET_MAX_DATE" onChange={handleOnDataChange} /></td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td colspan="2"><Form.Control type="text" dispatchtype="SET_DESCRIPTION" onChange={handleOnDataChange} placeholder="Search" /></td>
-                </tr>
-                <tr>
-                    <td>Amount</td>
-                    <td>Min: <Form.Control type="number" dispatchtype="SET_MIN_AMOUNT" onChange={handleOnDataChange} /></td>
-                    <td>Max: <Form.Control type="number" dispatchtype="SET_MAX_AMOUNT" onChange={handleOnDataChange} /></td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>Date</td>
+                        <td>From: <Form.Control type="date" dispatchtype="SET_MIN_DATE" onChange={handleOnDataChange} /></td>
+                        <td>To: <Form.Control type="date" dispatchtype="SET_MAX_DATE" onChange={handleOnDataChange} /></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td colSpan="2"><Form.Control type="text" dispatchtype="SET_DESCRIPTION" onChange={handleOnDataChange} placeholder="Search" /></td>
+                    </tr>
+                    <tr>
+                        <td>Amount</td>
+                        <td>Min: <Form.Control type="number" dispatchtype="SET_MIN_AMOUNT" onChange={handleOnDataChange} /></td>
+                        <td>Max: <Form.Control type="number" dispatchtype="SET_MAX_AMOUNT" onChange={handleOnDataChange} /></td>
+                    </tr>
+                </tbody>
             </Table>
         </Form>
     );
