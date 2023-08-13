@@ -1,4 +1,5 @@
 import './App.css';
+import './css/layouts.css';
 import './css/modules.css';
 import TransactionChart from './components/Chart/TransactionChart';
 import FileUploadParser from './components/FileUpload/FileUploadParser';
@@ -9,9 +10,9 @@ function App() {
   return (
     <div>
       <DataProvider>
-          <FileUploadParser />
-          <TransactionChart />
-          <SideBar />
+        <FileUploadParser />
+        <TransactionChart />
+        <SideBar />
       </DataProvider>
     </div>
   );
