@@ -2,6 +2,7 @@ import { Button, Card, Collapse, Tab, Tabs } from 'react-bootstrap';
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StateUploadParser } from './StateUploadParser';
+import FileUploadParser from './FileUploadParser';
 
 
 const UploadTab = ({ isOpen }) => {
@@ -15,6 +16,7 @@ const UploadTab = ({ isOpen }) => {
                             <StateUploadParser/>
                         </Tab>
                         <Tab eventKey="new" title="New">
+                            <FileUploadParser/>
                         </Tab>
                     </Tabs>
                 </Card>
