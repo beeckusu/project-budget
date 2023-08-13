@@ -1,12 +1,12 @@
 class Transaction {
-    constructor(id, description, amount, date, transactionType){
+
+    constructor(id, description, amount, date, transactionType, isActive=true){
         this.id = id;
         this.description = description;
         this.amount = amount;
         this.date = date;
         this.transactionType = transactionType;
-        this.tag = null;
-        this.isActive = true;
+        this.isActive = isActive;
     };
 
     setTag(tag){

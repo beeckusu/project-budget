@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Button } from "react-bootstrap";
-import FileInput from "./FileInput";
+import { NewFileInput } from "./FileInput";
 import ColumnParser from "./ColumnParser";
 import { DataContext, ACTION_SET_TRANSACTIONS } from "../../contexts/DataContext";
 import { TransactionParsingProvider, TransactionParsingContext } from "../../contexts/TransactionParsingContext";
@@ -50,7 +50,7 @@ const FileUploadParser = () => {
     return (
         <TransactionParsingProvider>
             <h1>File Upload Parser</h1>
-            <FileInput onChange={setFile} />
+            <NewFileInput onChange={setFile} />
             <ColumnParser />
             <ParseButton file={file} />
         </TransactionParsingProvider>

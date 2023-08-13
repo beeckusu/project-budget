@@ -10,6 +10,7 @@ export const ACTION_DELETE_TAG = 'DELETE_TAG';
 export const ACTION_ADD_TAG = 'ADD_TAG';
 export const ACTION_SET_TRANSACTION_DESCRIPTION_TAG = 'SET_TRANSACTION_DESCRIPTION_TAG';
 export const ACTION_TOGGLE_OBJECT_VISIBILITY = 'TOGGLE_TRANSACTION_VISIBILITY';
+export const ACTION_SET_STATE = 'SET_STATE';
 
 export const DEFAULT_TAG_ID = 1;
 
@@ -82,6 +83,9 @@ const DataReducer = (state, action) => {
                 descriptions: state.descriptions,
                 tags: state.tags
             }
+
+        case ACTION_SET_STATE:
+            return action.payload;
 
             
         default:

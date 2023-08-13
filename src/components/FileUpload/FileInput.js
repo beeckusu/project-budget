@@ -1,15 +1,26 @@
-import React from 'react';
-import { Form } from 'react-bootstrap';
-import { parseCSVColumns } from '../../events/ParsingEvents';
 import { useContext } from 'react';
+import { Form } from 'react-bootstrap';
 import { TransactionParsingContext, ACTION_SET_COLUMNS } from '../../contexts/TransactionParsingContext';
+import { parseCSVColumns } from '../../events/ParsingEvents';
 
 
 const FileInput = ({ onChange }) => {
 
+    return (
+        <Form>
+            <Form.Group>
+                <Form.Label for='fileInput'>Choose a file:</Form.Label>
+                <Form.Control type="file" onChange={onChange} id='fileInput' />
+            </Form.Group>
+        </Form>
+    );
+}
+
+
+const NewFileInput = ({ onChange }) => {
     const { dispatch } = useContext(TransactionParsingContext);
 
-    const handleOnChange = (event) => {
+    const handleOnNewFileChange = (event) => {
         onChange(event);
         parseCSVColumns(event.target.files[0]).then(result => {
 
@@ -21,18 +32,12 @@ const FileInput = ({ onChange }) => {
             });
 
         });
-
     }
 
     return (
-        <Form>
-            <Form.Group>
-                <Form.Label for='fileInput'>Choose a file:</Form.Label>
-                <Form.Control type="file" onChange={handleOnChange} id='fileInput' />
-            </Form.Group>
-        </Form>
-    );
+        <FileInput onChange={handleOnNewFileChange} />
+    )
 }
 
 
-export default FileInput;
+export { FileInput, NewFileInput };
