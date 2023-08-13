@@ -1,0 +1,9 @@
+.layout-overlay { 
+    position: fixed;
+    z-index: 1;
+}
+
+.layout-top-right {
+    top: 25px;
+    right: 25px;
+}
