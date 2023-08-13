@@ -51,7 +51,7 @@ const TransactionDescriptionRow = ({ transactionDescription }) => {
                     </Dropdown.Menu>
                 </Dropdown>
             </td>
-            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transactionDescription.isVisible() ? faPlay: faPause} /></Button></td>
+            <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transactionDescription.isActive ? faPlay: faPause} /></Button></td>
         </tr>
     );
 }
