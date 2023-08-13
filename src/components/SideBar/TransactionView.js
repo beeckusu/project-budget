@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
+import { FilterForm } from "./Utils";
 import { ACTION_TOGGLE_OBJECT_VISIBILITY, DataContext } from "../../contexts/DataContext";
-import { SideBarContext } from "../../contexts/SideBarContext";
+import { SideBarContext, ACTION_SET_MIN_DATE, ACTION_SET_MAX_DATE, ACTION_SET_DESCRIPTION, ACTION_SET_MIN_AMOUNT, ACTION_SET_MAX_AMOUNT, ACTION_SET_TAG } from "../../contexts/SideBarContext";
 import { filterTransactions } from "../../events/SideBarEvents";
 import { FormatMoney, FormatDate } from "../../utils/Utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,56 +28,9 @@ const TransactionRow = ({ transaction }) => {
             <td>{transaction.description.name}</td>
             <td>{FormatMoney(transaction.amount)}</td>
             <td>{transaction.transactionType}</td>
+            <td>{transaction.description.tag.name}</td>
             <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={transaction.isActive ? faPlay : faPause} /></Button></td>
         </tr>
-    );
-}
-
-const FilterTransactionsForm = () => {
-
-    const { dispatch } = useContext(SideBarContext);
-
-    const handleOnDataChange = (event) => {
-
-        const dispatchType = event.target.getAttribute('dispatchType');
-        let value = event.target.value;
-
-        if (['SET_MIN_DATE', 'SET_MAX_DATE'].includes(dispatchType)) {
-            value = value != '' ? new Date(value) : value;
-        } else if (['SET_MIN_AMOUNT', 'SET_MAX_AMOUNT'].includes(dispatchType)) {
-            value = value != '' ? parseFloat(value) : value;
-        }
-
-        dispatch({
-            type: dispatchType,
-            payload: {
-                data: value,
-            }
-        });
-
-    }
-
-    return (
-        <Form>
-            <Table>
-                <tbody>
-                    <tr>
-                        <td>Date</td>
-                        <td>From: <Form.Control type="date" dispatchtype="SET_MIN_DATE" onChange={handleOnDataChange} /></td>
-                        <td>To: <Form.Control type="date" dispatchtype="SET_MAX_DATE" onChange={handleOnDataChange} /></td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td colSpan="2"><Form.Control type="text" dispatchtype="SET_DESCRIPTION" onChange={handleOnDataChange} placeholder="Search" /></td>
-                    </tr>
-                    <tr>
-                        <td>Amount</td>
-                        <td>Min: <Form.Control type="number" dispatchtype="SET_MIN_AMOUNT" onChange={handleOnDataChange} /></td>
-                        <td>Max: <Form.Control type="number" dispatchtype="SET_MAX_AMOUNT" onChange={handleOnDataChange} /></td>
-                    </tr>
-                </tbody>
-            </Table>
-        </Form>
     );
 }
 
@@ -84,12 +38,12 @@ const FilterTransactionsForm = () => {
 const TransactionTable = () => {
 
     const { state: sideBarState } = useContext(SideBarContext);
-    const { minDate, maxDate, description, minAmount, maxAmount } = sideBarState;
+    const { minDate, maxDate, description, minAmount, maxAmount, tag } = sideBarState;
 
     const { state: dataState } = useContext(DataContext);
 
     let transactions = 'transactions' in dataState ? dataState.transactions : [];
-    transactions = filterTransactions(transactions, minDate, maxDate, description, minAmount, maxAmount);
+    transactions = filterTransactions(transactions, minDate, maxDate, description, minAmount, maxAmount, tag);
 
     return (
         <Table striped bordered hover>
@@ -99,6 +53,7 @@ const TransactionTable = () => {
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Transaction Type</th>
+                    <th>Tag</th>
                     <th></th>
                 </tr>
             </thead>
@@ -113,10 +68,28 @@ const TransactionTable = () => {
 
 
 const TransactionView = () => {
+
+    const { dispatch } = useContext(SideBarContext);
+
+    const filterFieldNames = ['Date', 'Description', 'Amount', 'Tag'];
+    const dispatchTypes = {
+        'Date': [ACTION_SET_MIN_DATE, ACTION_SET_MAX_DATE],
+        'Description': [ACTION_SET_DESCRIPTION],
+        'Amount': [ACTION_SET_MIN_AMOUNT, ACTION_SET_MAX_AMOUNT],
+        'Tag': [ACTION_SET_TAG],
+    }
+    const dateFields = ['Date'];
+    const floatFields = ['Amount'];
+
+
     return (
         <div>
             <h1>Transactions</h1>
-            <FilterTransactionsForm />
+            <FilterForm dispatch={dispatch}
+                fieldNames={filterFieldNames}
+                dispatchTypes={dispatchTypes}
+                dateFields={dateFields}
+                floatFields={floatFields} />
             <TransactionTable />
         </div>
     );

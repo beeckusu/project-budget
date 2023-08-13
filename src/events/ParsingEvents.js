@@ -91,6 +91,12 @@ const normalizeTransactions = (transactions) => {
 
 }
 
+const setDefaultTag = (transactionDescriptions, defaultTag) => {    
+        transactionDescriptions.forEach(transactionDescription => {
+            transactionDescription.tag = defaultTag;
+        });
+}
+
 
 const rowToTransaction = (row, transactionFieldToColumn = defaultTransactionFieldToColumn) => {
 
@@ -167,4 +173,4 @@ const parseStateFile = (file) => {
 }
 
 
-export { parseCSV, rowToTransaction, normalizeTransactions, parseCSVColumns, parseStateFile };
+export { parseCSV, rowToTransaction, normalizeTransactions, setDefaultTag, parseCSVColumns, parseStateFile };
