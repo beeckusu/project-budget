@@ -23,6 +23,15 @@ const DataReducer = (state, action) => {
                 transactions: action.payload.transactions,
                 descriptions: action.payload.transactionDescriptions
             }
+        
+        case ACTION_ADD_TRANSACTIONS:
+            state.transactions.push(...action.payload.transactions);
+            state.descriptions.push(...action.payload.transactionDescriptions);
+            return {
+                ...state,
+                transactions: state.transactions,
+                descriptions: state.descriptions
+            }
 
         case ACTION_SET_TAG_NAME:
             state.tags.find((tag) => tag.id == action.payload.tagId).name = action.payload.data;
