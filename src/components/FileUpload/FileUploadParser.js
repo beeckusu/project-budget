@@ -2,9 +2,9 @@ import { useState, useContext } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { NewFileInput } from "./FileInput";
 import ColumnParser from "./ColumnParser";
-import { DataContext, ACTION_SET_TRANSACTIONS, ACTION_ADD_TRANSACTIONS } from "../../contexts/DataContext";
+import { DataContext, ACTION_SET_TRANSACTIONS, ACTION_ADD_TRANSACTIONS, DEFAULT_TAG_ID } from "../../contexts/DataContext";
 import { TransactionParsingProvider, TransactionParsingContext } from "../../contexts/TransactionParsingContext";
-import { normalizeTransactions, parseCSV, rowToTransaction } from "../../events/ParsingEvents";
+import { normalizeTransactions, parseCSV, rowToTransaction, setDefaultTag } from "../../events/ParsingEvents";
 
 
 const ConfirmationModal = ({ show, onHide, onConfirm, modalHeader, modalMessage, modalTheme, confirmLabel }) => {
@@ -31,7 +31,7 @@ const ConfirmationModal = ({ show, onHide, onConfirm, modalHeader, modalMessage,
 
 const ParseButton = ({ children, file, eventType, variant, confirmHeader, confirmMessage, confirmLabel }) => {
 
-    const { dispatch } = useContext(DataContext);
+    const { state: dataState, dispatch } = useContext(DataContext);
     const { state } = useContext(TransactionParsingContext);
     const { dateCol, descriptionCol, expenseCol, depositCol } = state;
 
@@ -54,6 +54,8 @@ const ParseButton = ({ children, file, eventType, variant, confirmHeader, confir
         Promise.all(parsingPromises).then(results => {
             const transactions = results.flat();
             const transactionDescriptions = normalizeTransactions(transactions);
+            const defaultTag = dataState.tags.find((tag) => tag.id == DEFAULT_TAG_ID);
+            setDefaultTag(transactionDescriptions, defaultTag);
 
             const fileDetails = {
                 transactions: transactions,
