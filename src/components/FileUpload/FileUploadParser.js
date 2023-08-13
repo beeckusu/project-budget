@@ -47,12 +47,16 @@ const ParseButton = ({ children, file, eventType, variant, confirmHeader, confir
             'deposit': depositCol
         }
 
-        parseCSV(file.target.files[0], rowToTransaction, transactionFieldToColumn).then(result => {
+        const parsingPromises = [];
+        for (let fileToParse of file.target.files)
+            parsingPromises.push(parseCSV(fileToParse, rowToTransaction, transactionFieldToColumn));
 
-            const transactionDescriptions = normalizeTransactions(result);
+        Promise.all(parsingPromises).then(results => {
+            const transactions = results.flat();
+            const transactionDescriptions = normalizeTransactions(transactions);
 
             const fileDetails = {
-                transactions: result,
+                transactions: transactions,
                 transactionDescriptions: transactionDescriptions,
             }
 
@@ -60,7 +64,6 @@ const ParseButton = ({ children, file, eventType, variant, confirmHeader, confir
                 type: eventType,
                 payload: fileDetails,
             });
-
         });
     }
 

@@ -1,16 +1,16 @@
 import { useContext } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, FormControl } from 'react-bootstrap';
 import { TransactionParsingContext, ACTION_SET_COLUMNS } from '../../contexts/TransactionParsingContext';
 import { parseCSVColumns } from '../../events/ParsingEvents';
 
 
-const FileInput = ({ onChange }) => {
+const FileInput = ({ onChange, multiple }) => {
 
     return (
         <Form>
             <Form.Group>
                 <Form.Label for='fileInput'>Choose a file:</Form.Label>
-                <Form.Control type="file" onChange={onChange} id='fileInput' />
+                <FormControl id='fileInput' type='file' onChange={onChange} multiple={multiple} />
             </Form.Group>
         </Form>
     );
@@ -35,7 +35,7 @@ const NewFileInput = ({ onChange }) => {
     }
 
     return (
-        <FileInput onChange={handleOnNewFileChange} />
+        <FileInput multiple={true} onChange={handleOnNewFileChange} />
     )
 }
 
