@@ -18,7 +18,7 @@ const SideBar = () => {
         <SideBarProvider>
 
             <div className={`sidebar ${open ? 'open' : 'collapsed'} override-bs layout-overlay layout-top-right`}>
-                <div class="icon-bar">
+                <div className="icon-bar">
                     <UploadTabButton isOpen={uploadOpen} onClick={() => {setOpen(false);setUploadOpen(!uploadOpen)}} />
                     <Button
                         onClick={() => {setOpen(!open); setUploadOpen(false)}}
@@ -32,8 +32,8 @@ const SideBar = () => {
                 </div>
                 <UploadTab isOpen={uploadOpen}/>
                 <Collapse in={open} dimension="width">
-                    <Card class='sidebar-content'>
-                        <Tabs defaultActiveKey="transactions" class="sidebar-collapse">
+                    <Card className='sidebar-content'>
+                        <Tabs defaultActiveKey="transactions" className="sidebar-collapse">
                             <Tab eventKey="transactions" title="Transactions">
                                 <TransactionView />
                             </Tab>

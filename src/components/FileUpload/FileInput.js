@@ -9,7 +9,7 @@ const FileInput = ({ onChange, multiple }) => {
     return (
         <Form>
             <Form.Group>
-                <Form.Label for='fileInput'>Choose a file:</Form.Label>
+                <Form.Label htmlFor='fileInput'>Choose a file:</Form.Label>
                 <FormControl id='fileInput' type='file' onChange={onChange} multiple={multiple} />
             </Form.Group>
         </Form>

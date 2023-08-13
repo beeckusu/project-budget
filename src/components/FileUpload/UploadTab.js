@@ -10,8 +10,8 @@ const UploadTab = ({ isOpen }) => {
     return (
         <div className={`sidebar ${isOpen ? 'open' : 'collapsed'}`}>
             <Collapse in={isOpen} dimension="width">
-                <Card class='sidebar-content'>
-                    <Tabs defaultActiveKey="existing" class="sidebar-collapse">
+                <Card className='sidebar-content'>
+                    <Tabs defaultActiveKey="existing" className="sidebar-collapse">
                         <Tab eventKey="existing" title="Existing">
                             <StateUploadParser/>
                         </Tab>

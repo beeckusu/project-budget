@@ -83,7 +83,7 @@ const TagTable = () => {
             </thead>
             <tbody>
                 {tags.map((tag) => {
-                    return <TagRow tag={tag} />
+                    return <TagRow key={tag.id} tag={tag} />
                 })}
                 <tr>
                     <td></td>
