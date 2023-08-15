@@ -28,6 +28,7 @@ const parseCSVColumns = (file) => {
 
         if (file.size === 0) {
             resolve([]);
+            return;
         }
 
         ExcelRenderer(file, (error, response) => {
