@@ -55,6 +55,7 @@ const parseCSV = (file, rowToObject, fieldToCol = defaultTransactionFieldToColum
 
         if (file.size === 0) {
             resolve([]);
+            return;
         }
 
         ExcelRenderer(file, (error, response) => {
