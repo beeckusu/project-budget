@@ -24,7 +24,6 @@ const filterTransactions = (transactions, minDate, maxDate, description, minAmou
 
 
 const filterTransactionDescriptions = (transactionDescriptions, name, tag) => {
-    console.log(name);
 
     if (name !== '') {
         transactionDescriptions = transactionDescriptions.filter(transactionDescription => transactionDescription.name.includes(name));

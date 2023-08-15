@@ -1,6 +1,8 @@
+import { useState, useRef } from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
+import { faArrowDownShortWide, faArrowUpWideShort } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ACTION_CLEAR_FILTERS } from '../../contexts/SideBarContext';
-import { useRef } from 'react';
 
 
 const FilterDateInput = ({ fieldName, dispatchTypes, onChange }) => {
@@ -35,9 +37,6 @@ const FilterTextInput = ({ fieldName, dispatchType, onChange }) => {
 };
 
 
-
-
-
 /**
  * 
  * @param {*} dispatch - Dispatch function to send events to
@@ -70,10 +69,10 @@ const FilterForm = ({ dispatch, fieldNames, dispatchTypes, dateFields, floatFiel
         });
 
         if (dateDispatchTypes.includes(dispatchType)) {
-            value = value != '' ? new Date(value) : value;
+            value = value !== '' ? new Date(value) : value;
 
         } else if (floatDispatchTypes.includes(dispatchType)) {
-            value = value != '' ? parseFloat(value) : value;
+            value = value !== '' ? parseFloat(value) : value;
         }
 
         dispatch({
@@ -109,7 +108,7 @@ const FilterForm = ({ dispatch, fieldNames, dispatchTypes, dateFields, floatFiel
         <Form ref={filterForm}>
             <Table>
                 <tbody>
-                    {fieldNames.map((fieldName) => { 
+                    {fieldNames.map((fieldName) => {
                         if (dateFields.includes(fieldName)) {
                             return <FilterDateInput key={fieldName} fieldName={fieldName} dispatchTypes={dispatchTypes[fieldName]} onChange={handleOnDataChange} />
                         } else if (floatFields.includes(fieldName)) {
@@ -125,4 +124,78 @@ const FilterForm = ({ dispatch, fieldNames, dispatchTypes, dateFields, floatFiel
     );
 }
 
-export { FilterForm };
+
+/**
+ * 
+ * @param {*} schema - Array of objects that each describe a column. For each object, the properties are:
+ *     name - The name of the column to display
+ *     property - The property of the data object
+ *     getProperty - Function to get the property of the data object
+ *     sort - Bool representing sort direction. True for ascending, false for descending, null for no sort
+ *     formatter - Function to format the data
+ * 
+ * @param {*} data - Array of data objects to display in table
+ * @returns 
+ */
+const SortableTable = ({ schema, data, filter }) => {
+
+    const [sortState, setSortState] = useState({});
+    const [sortedData, setSortedData] = useState(data);
+
+    if (sortedData.length === 0 && data.length > 0) {
+        setSortedData(data);
+    }
+
+    const sortOnClick = (property, getProperty) => {
+
+        if (property in sortState) {
+            sortState[property] = !sortState[property];
+        } else {
+            sortState[property] = true;
+        }
+
+        let newSortedData = [...data];
+        newSortedData.sort((a, b) => {
+            if (getProperty(a) > getProperty(b)) {
+                return sortState[property] ? 1 : -1;
+            } else if (getProperty(a) < getProperty(b)) {
+                return sortState[property] ? -1 : 1;
+            } else {
+                return 0;
+            }
+
+        });
+
+        setSortState(sortState);
+        setSortedData(newSortedData);
+
+    }
+
+    return (
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    {schema.map((field) => {
+                        return <th onClick={field.sort ? () => sortOnClick(field.property, field.getProperty) : () => ''}>
+                            {field.name} {field.property in sortState ? <FontAwesomeIcon icon={sortState[field.property] ? faArrowDownShortWide : faArrowUpWideShort } /> : ''}
+                        </th>
+                    })}
+                </tr>
+            </thead>
+            <tbody>
+                {filter(sortedData).map((row) => {
+                    return (
+                        <tr>
+                            {schema.map((field) => {
+                                return <td>{field.displayField ? field.displayField(row) : field.getProperty(row)}</td>
+                            })}
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </Table>
+    )
+}
+
+
+export { FilterForm, SortableTable };
