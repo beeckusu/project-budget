@@ -98,4 +98,5 @@ function fetchChartData(transactions, dateInterval = DateInterval.DAY, chartCate
     return Object.values(data);
 }
 
+
 export { fetchChartData };
