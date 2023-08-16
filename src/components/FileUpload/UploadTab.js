@@ -5,7 +5,7 @@ import { StateUploadParser } from './StateUploadParser';
 import FileUploadParser from './FileUploadParser';
 
 
-const UploadTab = ({ isOpen }) => {
+const UploadTab = ({ isOpen, onUpload }) => {
 
     return (
         <div className={`sidebar ${isOpen ? 'open' : 'collapsed'}`}>
@@ -13,10 +13,10 @@ const UploadTab = ({ isOpen }) => {
                 <Card className='sidebar-content'>
                     <Tabs defaultActiveKey="existing" className="sidebar-collapse">
                         <Tab eventKey="existing" title="Existing">
-                            <StateUploadParser/>
+                            <StateUploadParser onUpload={onUpload} />
                         </Tab>
                         <Tab eventKey="new" title="New">
-                            <FileUploadParser/>
+                            <FileUploadParser onUpload={onUpload}/>
                         </Tab>
                     </Tabs>
                 </Card>
