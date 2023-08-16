@@ -18,7 +18,7 @@ const SummaryChart = ({ transactions }) => {
     const data = fetchChartData(transactions, dateInterval, chartCategory);
 
     return (
-        <BarChart width={600} height={600} data={data}>
+        <BarChart width={1200} height={600} data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="key" />
             <YAxis formatter={FormatMoney} />
@@ -118,11 +118,11 @@ const TransactionChart = () => {
     const { transactions } = state;
 
     return (
-        <GraphProvider>
+        <div>
             <h1>Summary Chart</h1>
             <SummaryChartController />
             <SummaryChart transactions={transactions == null ? [] : transactions} />
-        </GraphProvider>
+        </div>
     );
 }
 

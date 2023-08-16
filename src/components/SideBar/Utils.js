@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
 import { faArrowDownShortWide, faArrowUpWideShort } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -131,20 +131,22 @@ const FilterForm = ({ dispatch, fieldNames, dispatchTypes, dateFields, floatFiel
  *     name - The name of the column to display
  *     property - The property of the data object
  *     getProperty - Function to get the property of the data object
+ *     displayField - Function to display the data object
  *     sort - Bool representing sort direction. True for ascending, false for descending, null for no sort
  *     formatter - Function to format the data
  * 
  * @param {*} data - Array of data objects to display in table
  * @returns 
  */
-const SortableTable = ({ schema, data, filter }) => {
+const SortableTable = ({ schema, data, filter = null }) => {
 
     const [sortState, setSortState] = useState({});
     const [sortedData, setSortedData] = useState(data);
 
-    if (sortedData.length === 0 && data.length > 0) {
+    useEffect(() => {
+        setSortState({});
         setSortedData(data);
-    }
+    }, [data])
 
     const sortOnClick = (property, getProperty) => {
 
@@ -171,6 +173,8 @@ const SortableTable = ({ schema, data, filter }) => {
 
     }
 
+    const tableData = filter !== null ? filter(sortedData) : sortedData;
+
     return (
         <Table striped bordered hover>
             <thead>
@@ -183,7 +187,7 @@ const SortableTable = ({ schema, data, filter }) => {
                 </tr>
             </thead>
             <tbody>
-                {filter(sortedData).map((row) => {
+                {tableData.map((row) => {
                     return (
                         <tr>
                             {schema.map((field) => {
