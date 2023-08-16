@@ -61,7 +61,7 @@ const ColumnParser = () => {
                 <tbody>
                     <tr>
                         {fields.map((fieldName) => {
-                            return <ColumnDropdown fieldName={fieldName} currentCol={state[fieldName]} />
+                            return <ColumnDropdown key={fieldName} fieldName={fieldName} currentCol={state[fieldName]} />
                         })}
                     </tr>
                 </tbody>
