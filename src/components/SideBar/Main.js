@@ -11,27 +11,27 @@ import { SideBarProvider } from "../../contexts/SideBarContext";
 
 
 const SideBar = () => {
-    const [open, setOpen] = useState(false);
     const [uploadOpen, setUploadOpen] = useState(false);
+    const [dataOpen, setDataOpen] = useState(false);
 
     return (
         <SideBarProvider>
 
-            <div className={`sidebar ${open ? 'open' : 'collapsed'} override-bs layout-overlay layout-top-right`}>
+            <div className={`sidebar ${dataOpen ? 'open' : 'collapsed'} override-bs layout-overlay layout-top-right`}>
                 <div className="icon-bar">
-                    <UploadTabButton isOpen={uploadOpen} onClick={() => {setOpen(false);setUploadOpen(!uploadOpen)}} />
+                    <UploadTabButton isOpen={uploadOpen} onClick={() => {setDataOpen(false);setUploadOpen(!uploadOpen)}} />
                     <Button
-                        onClick={() => {setOpen(!open); setUploadOpen(false)}}
+                        onClick={() => {setDataOpen(!dataOpen); setUploadOpen(false)}}
                         aria-controls="sidebar-collapse"
-                        aria-expanded={open}
+                        aria-expanded={dataOpen}
                         className='circular-button sidebar-button'
                     >
                         <FontAwesomeIcon icon={faBars} />
                     </Button>
                     <DownloadButton />
                 </div>
-                <UploadTab isOpen={uploadOpen}/>
-                <Collapse in={open} dimension="width">
+                <UploadTab isOpen={uploadOpen} onUpload={() => {setDataOpen(false);setUploadOpen(false);}}/>
+                <Collapse in={dataOpen} dimension="width">
                     <Card className='sidebar-content'>
                         <Tabs defaultActiveKey="transactions" className="sidebar-collapse">
                             <Tab eventKey="transactions" title="Transactions">

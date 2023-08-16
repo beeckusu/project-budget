@@ -29,7 +29,7 @@ const ConfirmationModal = ({ show, onHide, onConfirm, modalHeader, modalMessage,
 }
 
 
-const ParseButton = ({ children, file, eventType, variant, confirmHeader, confirmMessage, confirmLabel }) => {
+const ParseButton = ({ children, file, eventType, variant, confirmHeader, confirmMessage, confirmLabel, onClick }) => {
 
     const { state: dataState, dispatch } = useContext(DataContext);
     const { state } = useContext(TransactionParsingContext);
@@ -67,6 +67,7 @@ const ParseButton = ({ children, file, eventType, variant, confirmHeader, confir
                 payload: fileDetails,
             });
         });
+        onClick();
     }
 
     return (<>
@@ -84,7 +85,7 @@ const ParseButton = ({ children, file, eventType, variant, confirmHeader, confir
 }
 
 
-const FileUploadParser = () => {
+const FileUploadParser = ({ onUpload }) => {
 
     const [file, setFile] = useState('');
 
@@ -98,12 +99,14 @@ const FileUploadParser = () => {
                 confirmHeader="Starting New Chart"
                 confirmMessage="Are you sure you want start over with new data?"
                 confirmLabel="Start Over"
+                onClick={onUpload}
                 variant="warning">New</ParseButton>
             <ParseButton file={file}
                 eventType={ACTION_ADD_TRANSACTIONS}
                 confirmHeader="Adding Transactions"
                 confirmMessage="Are you sure you want to add new data?"
                 confirmLabel="Add"
+                onClick={onUpload}
                 variant="primary">Add</ParseButton>
         </TransactionParsingProvider>
     )

@@ -5,7 +5,7 @@ import { DataContext, ACTION_SET_STATE } from '../../contexts/DataContext';
 import { parseStateFile } from '../../events/ParsingEvents';
 
 
-const StateUploadParser = () => {
+const StateUploadParser = ({ onUpload }) => {
 
     const [file, setFile] = useState(null);
     const { dispatch } = useContext(DataContext);
@@ -18,8 +18,9 @@ const StateUploadParser = () => {
                 type: ACTION_SET_STATE,
                 payload: result,
             });
-    
+
         });
+        onUpload();
     }
 
     return (
