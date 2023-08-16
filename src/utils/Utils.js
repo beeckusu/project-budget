@@ -1,6 +1,7 @@
 import { DateInterval } from "./Enums";
 
 const FormatMoney = (value) => {
+    if (value == null) return '-';
     return `$${value.toFixed(2)}`;
 }
 
