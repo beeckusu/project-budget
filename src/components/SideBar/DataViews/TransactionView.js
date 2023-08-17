@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FilterForm, SortableTable } from "../Utils";
-import { ACTION_TOGGLE_OBJECT_VISIBILITY, DataContext } from "../../../contexts/DataContext";
+import { ACTION_TOGGLE_OBJECT_VISIBILITY, ACTION_SET_TRANSACTION_DESCRIPTION_TAG, DataContext } from "../../../contexts/DataContext";
 import { ACTION_SET_DESCRIPTION, ACTION_SET_MAX_AMOUNT, ACTION_SET_MAX_DATE, ACTION_SET_MIN_AMOUNT, ACTION_SET_MIN_DATE, ACTION_SET_TAG, SideBarContext } from "../../../contexts/SideBarContext";
 import { filterTransactions } from "../../../events/SideBarEvents";
 import { FormatDate, FormatMoney } from "../../../utils/Utils";
@@ -46,6 +46,16 @@ const TransactionTable = () => {
             }
         });
     }
+    const handleSelection = (transactionDescription, tag) => {
+
+        dispatch({
+            type: ACTION_SET_TRANSACTION_DESCRIPTION_TAG,
+            payload: {
+                transactionDescription: transactionDescription,
+                tag: tag,
+            }
+        });
+    }
     const schema = [{
         name: 'Date',
         property: 'date',
@@ -70,8 +80,22 @@ const TransactionTable = () => {
         sort: true,
     }, {
         name: 'Tag',
-        property: 'description.tag.name',
+        property: 'tag',
         getProperty: (transaction) => transaction.description.tag.name,
+        displayField: (transaction) => {
+            return (
+                <Dropdown>
+                    <Dropdown.Toggle style={{ backgroundColor: transaction.description.tag.colour }}>
+                        {transaction.description.tag.name}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {state.tags.map((tag) => {
+                            return <Dropdown.Item key={tag.id} onClick={() => handleSelection(transaction.description, tag)}>{tag.name}</Dropdown.Item>
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>
+            )
+        },
         sort: true
     }, {
         name: 'Active',
@@ -84,7 +108,7 @@ const TransactionTable = () => {
     const { minDate, maxDate, description, minAmount, maxAmount, tag } = sideBarState;
 
     return (
-        <SortableTable schema={schema} data={transactions} filter={(transactions) => filterTransactions(transactions, minDate, maxDate, description, minAmount, maxAmount, tag)}/>
+        <SortableTable schema={schema} data={transactions} filter={(transactions) => filterTransactions(transactions, minDate, maxDate, description, minAmount, maxAmount, tag)} />
     )
 }
 
