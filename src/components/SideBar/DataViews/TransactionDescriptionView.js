@@ -2,10 +2,10 @@ import { useContext } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
-import { FilterForm, SortableTable } from './Utils';
-import { ACTION_SET_TRANSACTION_DESCRIPTION_TAG, DataContext, ACTION_TOGGLE_OBJECT_VISIBILITY } from '../../contexts/DataContext';
-import { SideBarContext, ACTION_SET_DESCRIPTION_NAME, ACTION_SET_DESCRIPTION_TAG } from '../../contexts/SideBarContext';
-import { filterTransactionDescriptions } from '../../events/SideBarEvents';
+import { FilterForm, SortableTable } from '../Utils';
+import { ACTION_SET_TRANSACTION_DESCRIPTION_TAG, DataContext, ACTION_TOGGLE_OBJECT_VISIBILITY } from '../../../contexts/DataContext';
+import { SideBarContext, ACTION_SET_DESCRIPTION_NAME, ACTION_SET_DESCRIPTION_TAG } from '../../../contexts/SideBarContext';
+import { filterTransactionDescriptions } from '../../../events/SideBarEvents';
 
 
 const TransactionDescriptionFilterForm = () => {
@@ -63,14 +63,11 @@ const TransactionDescriptionTable = () => {
         name: 'Tag',
         property: 'tag',
         getProperty: (transactionDescription) => transactionDescription.tag.name,
-        sort: true
-    }, {
-        name: '',
         displayField: (transactionDescription) => {
             return (
                 <Dropdown>
-                    <Dropdown.Toggle variant="info">
-                        Change Tag
+                    <Dropdown.Toggle style={{backgroundColor:transactionDescription.tag.colour}}>
+                        {transactionDescription.tag.name}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {state.tags.map((tag) => {
@@ -79,7 +76,8 @@ const TransactionDescriptionTable = () => {
                     </Dropdown.Menu>
                 </Dropdown>
             )
-        }
+        },
+        sort: true,
     }, {
         name: '',
         displayField: (transactionDescription) => {

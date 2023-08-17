@@ -7,27 +7,3 @@
     display: flex;
     align-items: center;
 }
-
-.sidebar {
-    right: 25px;
-    width: 1000px;
-    max-height: 100%;
-    margin-left: auto;
-    margin-right: 0;
-}
-
-.sidebar .card {
-    top: 0px;
-    max-height: 800px;
-    width: 100%;
-    overflow-y: auto;
-}
-
-.icon-bar {
-    top: 75px;
-    right: 25px;
-    left: auto;
-    display: flex;
-    justify-content: flex-end;
-
-}

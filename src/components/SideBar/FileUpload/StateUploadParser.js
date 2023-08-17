@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { FileInput } from './FileInput';
-import { DataContext, ACTION_SET_STATE } from '../../contexts/DataContext';
-import { parseStateFile } from '../../events/ParsingEvents';
+import { DataContext, ACTION_SET_STATE } from '../../../contexts/DataContext';
+import { parseStateFile } from '../../../events/ParsingEvents';
 
 
 const StateUploadParser = ({ onUpload }) => {
@@ -24,10 +24,14 @@ const StateUploadParser = ({ onUpload }) => {
     }
 
     return (
-        <div>
-            <h1>StateUploadParser</h1>
+        <div className='state-upload'>
+            <p>
+                Upload a JSON file to restore a previous session. Advised to upload only files downloaded from the Download button.
+            </p>
             <FileInput onChange={setFile} />
-            <Button variant="primary" onClick={handleOnParseClick}>Parse</Button>
+            <Button variant='secondary'
+                className='theme-active-primary layout-margin-top-minor override-bs'
+                onClick={handleOnParseClick}>Parse</Button>
         </div>
     )
 }

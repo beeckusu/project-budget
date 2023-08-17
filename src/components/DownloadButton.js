@@ -11,7 +11,7 @@ const DownloadButton = () => {
     const { state } = useContext(DataContext);
 
     return (
-        <Button className="circular-button" onClick={() => downloadTransactionState(state)}>
+        <Button variant='success' className="circular-button" onClick={() => downloadTransactionState(state)}>
             <FontAwesomeIcon icon={faDownload} />
         </Button>
     )

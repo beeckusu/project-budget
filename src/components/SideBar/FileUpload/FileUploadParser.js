@@ -1,35 +1,14 @@
 import { useState, useContext } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { NewFileInput } from "./FileInput";
 import ColumnParser from "./ColumnParser";
-import { DataContext, ACTION_SET_TRANSACTIONS, ACTION_ADD_TRANSACTIONS, DEFAULT_TAG_ID } from "../../contexts/DataContext";
-import { TransactionParsingProvider, TransactionParsingContext } from "../../contexts/TransactionParsingContext";
-import { normalizeTransactions, parseCSV, rowToTransaction, setDefaultTag } from "../../events/ParsingEvents";
+import { DataContext, ACTION_SET_TRANSACTIONS, ACTION_ADD_TRANSACTIONS, DEFAULT_TAG_ID } from "../../../contexts/DataContext";
+import { TransactionParsingProvider, TransactionParsingContext } from "../../../contexts/TransactionParsingContext";
+import { normalizeTransactions, parseCSV, rowToTransaction, setDefaultTag } from "../../../events/ParsingEvents";
+import { ConfirmationModal } from "../Utils";
 
 
-const ConfirmationModal = ({ show, onHide, onConfirm, modalHeader, modalMessage, modalTheme, confirmLabel }) => {
-
-    return (
-        <Modal show={show} onHide={onHide}>
-            <Modal.Header closeButton>
-                <Modal.Title>{modalHeader}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>{modalMessage}</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>
-                    Close
-                </Button>
-                <Button variant={modalTheme} onClick={onConfirm}>
-                    {confirmLabel}
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    )
-
-}
-
-
-const ParseButton = ({ children, file, eventType, variant, confirmHeader, confirmMessage, confirmLabel, onClick }) => {
+const ParseButton = ({ children, className, file, eventType, variant, confirmHeader, confirmMessage, confirmLabel, onClick }) => {
 
     const { state: dataState, dispatch } = useContext(DataContext);
     const { state } = useContext(TransactionParsingContext);
@@ -71,7 +50,9 @@ const ParseButton = ({ children, file, eventType, variant, confirmHeader, confir
     }
 
     return (<>
-        <Button variant={variant} onClick={() => setShow(true)}>{children}</Button>
+        <Button variant="secondary"
+            onClick={() => setShow(true)}
+            className={`layout-margin-right-minor ${className}`}>{children}</Button>
         <ConfirmationModal
             show={show}
             onHide={() => setShow(false)}
@@ -91,7 +72,9 @@ const FileUploadParser = ({ onUpload }) => {
 
     return (
         <TransactionParsingProvider>
-            <h1>File Upload Parser</h1>
+            <p>
+                Upload a CSV file to start a new chart or add to an existing one.
+            </p>
             <NewFileInput onChange={setFile} />
             <ColumnParser />
             <ParseButton file={file}
@@ -100,14 +83,14 @@ const FileUploadParser = ({ onUpload }) => {
                 confirmMessage="Are you sure you want start over with new data?"
                 confirmLabel="Start Over"
                 onClick={onUpload}
-                variant="warning">New</ParseButton>
+                className='theme-active-secondary'>New</ParseButton>
             <ParseButton file={file}
                 eventType={ACTION_ADD_TRANSACTIONS}
                 confirmHeader="Adding Transactions"
                 confirmMessage="Are you sure you want to add new data?"
                 confirmLabel="Add"
                 onClick={onUpload}
-                variant="primary">Add</ParseButton>
+                className='theme-active-secondary'>Add</ParseButton>
         </TransactionParsingProvider>
     )
 }

@@ -79,7 +79,9 @@ const TransactionTable = () => {
     })
 
     return (
-        <SortableTable schema={schema} data={tableData} id={state.id} />
+        <div className='layout-large-width layout-center'>
+            <SortableTable schema={schema} data={tableData} id={state.id} />
+        </div>
     )
 }
 

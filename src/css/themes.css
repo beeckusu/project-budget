@@ -1,0 +1,56 @@
+/* Passive-Primary */
+.theme-passive-primary {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+/* Passive-Secondary */
+.theme-passive-secondary {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Passive-Active */
+.theme-passive-active {
+    background-color: #000;
+    color: #fff;
+}
+
+.theme-passive-
+
+/* Active-Primary */
+.theme-active-primary,
+.display-controls button,
+button.theme-active-primary {
+    background-color: #6d00ea;
+    color: #ffffff;
+    border-color: #4a009f;
+}
+
+.display-controls button:hover,
+button.theme-active-primary:hover {
+    background-color: #4a009f;
+    color: #ffffff;
+}
+
+/* Active-Secondary */
+.theme-active-secondary,
+button.theme-active-secondary {
+    background-color: #fdff76;
+    color: #000000;
+    border-color: #585800;
+}
+
+button.theme-active-secondary:hover {
+    background-color: #cbce00;
+    color: #000000;
+    border-color: #585800;
+}
+
+button.theme-active-secondary:active {
+    background-color: #cbce00;
+    color: #000000;
+    border-color: #585800;
+}
+
+
