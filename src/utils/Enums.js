@@ -16,4 +16,9 @@ const ChartStyle = {
     SEPARATED: 1
 }
 
-export { DateInterval, ChartCategory, ChartStyle };
+const DisplayStyle  = {
+    CHART: 0,
+    TABLE: 1
+}
+
+export { DateInterval, ChartCategory, ChartStyle, DisplayStyle };

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Table, Dropdown } from 'react-bootstrap';
-import { TransactionParsingContext, ACTION_SET_COLUMN_INDEX } from '../../contexts/TransactionParsingContext';
+import { TransactionParsingContext, ACTION_SET_COLUMN_INDEX } from '../../../contexts/TransactionParsingContext';
 
 
 const ColumnDropdown = ({ fieldName, currentCol }) => {
@@ -25,7 +25,7 @@ const ColumnDropdown = ({ fieldName, currentCol }) => {
     return (
         <td>
             <Dropdown>
-                <Dropdown.Toggle variant="info">
+                <Dropdown.Toggle variant="secondary" className='theme-active-primary'>
                     {columns[currentCol]}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -48,7 +48,9 @@ const ColumnParser = () => {
 
     return (
         <div>
-            <h1>Column Parser</h1>
+            <p className='layout-margin-top-small'>
+                Match the columns in the file to the fields in the database.
+            </p>
             <Table>
                 <thead>
                     <tr>

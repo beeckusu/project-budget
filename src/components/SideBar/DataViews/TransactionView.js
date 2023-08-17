@@ -2,11 +2,11 @@ import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FilterForm, SortableTable } from "./Utils";
-import { ACTION_TOGGLE_OBJECT_VISIBILITY, DataContext } from "../../contexts/DataContext";
-import { ACTION_SET_DESCRIPTION, ACTION_SET_MAX_AMOUNT, ACTION_SET_MAX_DATE, ACTION_SET_MIN_AMOUNT, ACTION_SET_MIN_DATE, ACTION_SET_TAG, SideBarContext } from "../../contexts/SideBarContext";
-import { filterTransactions } from "../../events/SideBarEvents";
-import { FormatDate, FormatMoney } from "../../utils/Utils";
+import { FilterForm, SortableTable } from "../Utils";
+import { ACTION_TOGGLE_OBJECT_VISIBILITY, DataContext } from "../../../contexts/DataContext";
+import { ACTION_SET_DESCRIPTION, ACTION_SET_MAX_AMOUNT, ACTION_SET_MAX_DATE, ACTION_SET_MIN_AMOUNT, ACTION_SET_MIN_DATE, ACTION_SET_TAG, SideBarContext } from "../../../contexts/SideBarContext";
+import { filterTransactions } from "../../../events/SideBarEvents";
+import { FormatDate, FormatMoney } from "../../../utils/Utils";
 
 
 const TransactionFilterForm = () => {

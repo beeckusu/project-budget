@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { FormControl, Table, Button } from 'react-bootstrap';
-import { DataContext, DEFAULT_TAG_ID, ACTION_TOGGLE_OBJECT_VISIBILITY } from '../../contexts/DataContext';
+import { DataContext, DEFAULT_TAG_ID, ACTION_TOGGLE_OBJECT_VISIBILITY } from '../../../contexts/DataContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlay, faPlus, faPause } from '@fortawesome/free-solid-svg-icons';
 
 
 const TagRow = ({ tag }) => {
@@ -54,7 +54,7 @@ const TagRow = ({ tag }) => {
             <td><FormControl type="text" defaultValue={tag.name} dispatchtype="SET_TAG_NAME" tagid={tag.id} onChange={handleOnDataChange} /></td>
             <td><FormControl type="color" defaultValue={tag.colour} dispatchtype="SET_TAG_COLOUR" tagid={tag.id} onChange={handleOnDataChange} /></td>
             <td><Button><FontAwesomeIcon onClick={handleActiveButtonClick} icon={tag.isActive ? faPlay: faPause} /></Button></td>
-            <td>{tag.id != DEFAULT_TAG_ID && <Button variant="danger" className="circular-button" tagid={tag.id} onClick={handleDeleteTagButtonClick}>-</Button>}</td>
+            <td>{tag.id != DEFAULT_TAG_ID && <Button variant="danger" tagid={tag.id} onClick={handleDeleteTagButtonClick}><FontAwesomeIcon icon={faMinus} /></Button>}</td>
         </tr>
     );
 }
@@ -72,7 +72,7 @@ const TagTable = () => {
     };
 
     return (
-        <Table>
+        <Table className='override-bs'>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -89,7 +89,7 @@ const TagTable = () => {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><Button variant="success" className="circular-button" onClick={handleAddTagButtonClick}>+</Button></td>
+                    <td><Button variant="success" className="theme-active-primary" onClick={handleAddTagButtonClick}><FontAwesomeIcon icon={faPlus} /></Button></td>
                 </tr>
             </tbody>
         </Table>

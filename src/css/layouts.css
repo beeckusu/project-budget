@@ -1,9 +1,53 @@
-.layout-overlay { 
+.layout-overlay-container { 
     position: fixed;
     z-index: 1;
 }
 
 .layout-top-right {
-    top: 25px;
+    top: 40px;
     right: 25px;
+}
+
+.layout-center {
+    margin: 0 auto;
+}
+
+.layout-large-width {
+    width: 1200px;
+}
+
+.layout-center-content {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.layout-content-width {
+    width: fit-content;
+}
+
+.layout-margin-top-minor,
+.override-bs.layout-margin-top-minor {
+    margin-top: 10px;
+}
+
+.layout-margin-top-small {
+    margin-top: 25px;
+}
+
+.layout-margin-right-minor {
+    margin-right: 10px;
+}
+
+.layout-padding-top {
+    padding-top: 50px;
+}
+
+.layout-padding-bottom {
+    padding-bottom: 75px;
+}
+
+.layout-margin-vertical-minor {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

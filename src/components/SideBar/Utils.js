@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Button, Form, Table } from 'react-bootstrap';
+import { Button, Form, Table, Modal } from 'react-bootstrap';
 import { faArrowDownShortWide, faArrowUpWideShort } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ACTION_CLEAR_FILTERS } from '../../contexts/SideBarContext';
@@ -119,7 +119,7 @@ const FilterForm = ({ dispatch, fieldNames, dispatchTypes, dateFields, floatFiel
                     })}
                 </tbody>
             </Table>
-            <Button variant="warning" onClick={handleOnClearClick} className="layout-right-aligned">Clear</Button>
+            <Button onClick={handleOnClearClick} className="layout-right-aligned theme-active-secondary">Clear</Button>
         </Form>
     );
 }
@@ -176,12 +176,12 @@ const SortableTable = ({ schema, data, filter = null }) => {
     const tableData = filter !== null ? filter(sortedData) : sortedData;
 
     return (
-        <Table striped bordered hover>
+        <Table  striped bordered hover className='layout-margin-vertical-minor' >
             <thead>
                 <tr>
                     {schema.map((field) => {
                         return <th onClick={field.sort ? () => sortOnClick(field.property, field.getProperty) : () => ''}>
-                            {field.name} {field.property in sortState ? <FontAwesomeIcon icon={sortState[field.property] ? faArrowDownShortWide : faArrowUpWideShort } /> : ''}
+                            {field.name} {field.property in sortState ? <FontAwesomeIcon icon={sortState[field.property] ? faArrowDownShortWide : faArrowUpWideShort} /> : ''}
                         </th>
                     })}
                 </tr>
@@ -201,5 +201,39 @@ const SortableTable = ({ schema, data, filter = null }) => {
     )
 }
 
+const IconbarButton = ({isOpen, onClick, icon}) => {
+    return (
+        <Button variant='secondary'
+            onClick={onClick}
+            aria-controls="sidebar-collapse"
+            aria-expanded={isOpen}
+            className={`circular-button ${isOpen ? 'theme-active-primary' : 'theme-active-secondary'}`}>
+            <FontAwesomeIcon icon={icon} />
+        </Button>
+    );
+}
 
-export { FilterForm, SortableTable };
+
+const ConfirmationModal = ({ show, onHide, onConfirm, modalHeader, modalMessage, modalTheme, confirmLabel }) => {
+
+    return (
+        <Modal show={show} onHide={onHide}>
+            <Modal.Header closeButton>
+                <Modal.Title>{modalHeader}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{modalMessage}</Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onHide}>
+                    Close
+                </Button>
+                <Button className='theme-active-primary' onClick={onConfirm}>
+                    {confirmLabel}
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    )
+}
+
+
+
+export { FilterForm, SortableTable, IconbarButton, ConfirmationModal };
