@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# Project: Show Me The Money
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The goal of the project is to visualize the trends in the user's spending by allowing them to categorize their spending and to show the month-to-month
+changes, along with where they are spending their money.
 
-## Available Scripts
+## 1. Usage
 
-In the project directory, you can run:
+### 1.1. File Upload
 
-### `npm start`
+Users can load the app with data with one of two methods:\
+1. Uploading a CSV file
+    * Input files must contain the required fields: transaction date, transaction description, withdrawn amount, and deposited amount
+    * Column naming and order is not necessary (order is customized in-app)
+2. Uploading a previous save
+    * A separate feature allows users to save their progress from the app into a JSON file, which can be re-uploaded here
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1.2. Data Customization
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Users can sift through their transaction data to:
+    * Create new categories (and colour them to make each transaction visually distinct)
+    * Choose which categories, transaction sources, or individual transactions to visualize in the display
 
-### `npm test`
+### 1.3. Data Visualization
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Data is visualized in a medium controlled by the user:
+    * Chart vs. Table: Show the data in chart form or table form (the latter's customization is limited to restrict unwanted behaviour)
+    * Date interval: Group data by day, week, month, or year
+    * Category: Group data by nothing (homogenizing the data into one group to see the month-to-month trend), transaction source, or user-defined categories
+    * Chart style: (Chart-only) Display bars for the same group in parallel or stacked on top
