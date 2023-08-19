@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/project-budget/static/css/main.57b41ae8.css",
+    "main.js": "/project-budget/static/js/main.b5c6ce69.js",
+    "static/js/787.b9242aa2.chunk.js": "/project-budget/static/js/787.b9242aa2.chunk.js",
+    "static/media/background.jpg": "/project-budget/static/media/background.092636b6c05d463af0df.jpg",
+    "index.html": "/project-budget/index.html",
+    "main.57b41ae8.css.map": "/project-budget/static/css/main.57b41ae8.css.map",
+    "main.b5c6ce69.js.map": "/project-budget/static/js/main.b5c6ce69.js.map",
+    "787.b9242aa2.chunk.js.map": "/project-budget/static/js/787.b9242aa2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.57b41ae8.css",
+    "static/js/main.b5c6ce69.js"
+  ]
+}
